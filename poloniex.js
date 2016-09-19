@@ -9,12 +9,14 @@ export default class Poloniex {
     }
 
     init() {
+        Utils.event.emit(Constants.EVENT_TYPE_EXCHANGE_INITIED, this.name);
+
         this.connect();
     }
 
     connect() {
         Plnx.push((session) => {
-            Utils.event.emit(Constants.EVENT_TYPE_EXCHANGE_CONNECTED, session, this);
+            Utils.event.emit(Constants.EVENT_TYPE_EXCHANGE_CONNECTED, session);
         });
     }
 
@@ -25,23 +27,58 @@ export default class Poloniex {
     }
 
     getBalances() {
-
-    }
-
-    getTicker() {
-
+        Plnx.returnCompleteBalances({
+            key: '',
+            secret: ''
+        }, function(err, data) {
+            if (!err & data) {
+                Utils.event.emit(Constants.EVENT_TYPE_EXCHANGE_GET_BALANCES, data);
+            }
+        });
     }
 
     getOpenOrders() {
-
+        Plnx.returnOpenOrders({
+            currencyPair: '',
+            key: '',
+            secret: ''
+        }, function(err, data) {
+            if (!err && data) {
+                Utils.event.emit(Constants.EVENT_TYPE_EXCHANGE_GET_OPEN_ORDERS, data);
+            }
+        });
     }
 
-    buy() {
-
+    buy(currencyPair, rate, amount) {
+        Plnx.buy({
+            currencyPair: currencyPair,
+            rate: rate,
+            amount: amount,
+            key: '',
+            secret: ''
+        }, function(err, data) {
+            if (!err && data) {
+                Utils.event.emit(Constants.EVENT_TYPE_EXCHANGE_BUY, data);
+            }
+        })
     }
 
-    sell() {
+    sell(currencyPair, rate, amount) {
+        Plnx.sell({
+            currencyPair: currencyPair,
+            rate: rate,
+            amount: amount,
+            key: '',
+            secret: ''
+        }, function(err, data) {
+            if (!err && data) {
+                Utils.event.emit(Constants.EVENT_TYPE_EXCHANGE_SELL, data);
+            }
+        });
+    }
 
+    get name() {
+        return 'Poloniex';
     }
 
 }

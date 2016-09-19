@@ -14,21 +14,22 @@ export default class Exchange {
     }
 
     initEvents(){
-        Utils.event.on(Constants.EVENT_TYPE_EXCHANGE_INITIED, this.onExchangeInitied);
-        Utils.event.on(Constants.EVENT_TYPE_EXCHANGE_CONNECTED, this.onExchangeConnected);
-        Utils.event.on(Constants.EVENT_TYPE_EXCHANGE_TICKER_UPDATE, this.onExchangeTickerUpdate);
+        Utils.event.on(Constants.EVENT_TYPE_EXCHANGE_INITIED, (name) => { this.onExchangeInitied(name); });
+        Utils.event.on(Constants.EVENT_TYPE_EXCHANGE_CONNECTED, (session) => { this.onExchangeConnected(session); });
+        Utils.event.on(Constants.EVENT_TYPE_EXCHANGE_TICKER_UPDATE, (ticker) => { this.onExchangeTickerUpdate(ticker); });
     }
 
     initExchange() {
         this.exchange = new Poloniex();
     }
 
-    onExchangeInitied() {
-        console.log('exchange initied');
+    onExchangeInitied(name) {
+        let message = name + ' API initiated';
+        Utils.log(message);
     }
 
-    onExchangeConnected(session, emitter) {
-        emitter.subscribe(session, 'ticker');
+    onExchangeConnected(session) {
+        this.exchange.subscribe(session, 'ticker');
     }
 
     onExchangeTickerUpdate(ticker) {

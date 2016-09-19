@@ -8,7 +8,8 @@ export default class Utils {
     }
 
     static log(str) {
-        console.log(str);
+        let message = Utils.now() + ': ' + str;
+        console.log(message);
     }
 
     static get event() {
