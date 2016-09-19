@@ -1,0 +1,29 @@
+{
+  "name": "trading-bot",
+  "version": "1.0.1",
+  "description": "Automated Trading Bot",
+  "author": "Rafael Costa <rafaelcmrj@gmail.com> (https://github.com/rafaelcmrj)",
+  "contributors": [
+    "Paulo Alexandre <furtuna.alexandre@gmail.com> (https://github.com/gigaPaul)",
+    "Flavio Prumucena <prumucena@gmail.com> (https://github.com/fladev)"
+  ],
+  "scripts": {
+    "start": "babel-node index.js --presets es2015"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rafaelcmrj/trading-bot/"
+  },
+  "bugs": {
+    "url": "https://github.com/rafaelcmrj/trading-bot/issues",
+    "email": "rafaelcmrj@gmail.com"
+  },
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "nodemailer": "^2.6.0",
+    "plnx": "0.0.10"
+  },
+  "license": "MIT"
+}
